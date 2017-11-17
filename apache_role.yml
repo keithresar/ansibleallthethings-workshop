@@ -1,0 +1,9 @@
+---
+ - hosts: lab_server
+   name: Install the apache web service
+   become: yes 
+
+   roles:
+     - apache_basic
+
+

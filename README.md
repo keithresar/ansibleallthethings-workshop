@@ -1,1 +1,0 @@
-# ansibleallthethings-workshop

@@ -1,4 +1,4 @@
-- hosts: lab_servers
+- hosts: windows_web
 
   tasks:
     - name: add user operator
@@ -12,24 +12,3 @@
         name: student1
         data: foo
 
-    - name: Install Web Server
-      win_feature:
-        name: Web-Server
-        state: present
-
-    - name: Create web directory
-      win_file:
-        path: c:\www\student1
-        state: directory
-
-    - name: Create web index
-      win_lineinfile:
-        path: C:\www\student1\index.html
-        create: yes
-        line: "Hello World from {{ ansible_hostname }} at {{ ansible_ssh_host }}"
-
-    - name: Build web site
-      win_iis_website:
-        name: "Web site"
-        hostname: "student1.{{ ansible_ssh_host }}.xip.io"
-        physical_path: c:\www\student1

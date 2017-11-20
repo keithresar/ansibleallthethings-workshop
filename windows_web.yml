@@ -1,17 +1,6 @@
-- hosts: lab_servers
+- hosts: windows_web
 
   tasks:
-    - name: add user operator
-      win_user:
-        name: student1
-        password: 0p$4@ll
-
-    - name: Add or update the registry and leave your mark
-      win_regedit:
-        key: HKCU:\Software\Ansible
-        name: student1
-        data: foo
-
     - name: Install Web Server
       win_feature:
         name: Web-Server

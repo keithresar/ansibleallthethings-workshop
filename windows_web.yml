@@ -1,4 +1,6 @@
 - hosts: windows_web
+  vars:
+    student_username: studentX
 
   tasks:
     - name: Install Web Server
@@ -8,17 +10,17 @@
 
     - name: Create web directory
       win_file:
-        path: c:\www\student1
+        path: "c:\\www\\{{ student_username }}"
         state: directory
 
     - name: Create web index
       win_lineinfile:
-        path: C:\www\student1\index.html
+        path: "C:\\www\\{{ student_username }}\\index.html"
         create: yes
-        line: "Hello World from {{ ansible_hostname }} at {{ ansible_ssh_host }}"
+        line: "Hello World from {{ ansible_hostname }} at {{ ansible_ssh_host }} by {{ student_username }}"
 
     - name: Build web site
       win_iis_website:
-        name: "Web site"
-        hostname: "student1.{{ ansible_ssh_host }}.xip.io"
-        physical_path: c:\www\student1
+        name: "{{ student_username }} Web site"
+        hostname: "{{ student_username }}.{{ ansible_ssh_host }}.xip.io"
+        physical_path: "c:\\www\\{{ student_username }}"

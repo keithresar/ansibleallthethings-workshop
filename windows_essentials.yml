@@ -3,12 +3,12 @@
   tasks:
     - name: add user operator
       win_user:
-        name: student1
+        name: studentX
         password: 0p$4@ll
 
     - name: Add or update the registry and leave your mark
       win_regedit:
         key: HKCU:\Software\Ansible
-        name: student1
+        name: studentX
         data: foo
 

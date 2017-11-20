@@ -1,0 +1,32 @@
+---
+ - hosts: localhost
+   name: Update existing ticket
+   vars:
+     api_user: "{{ ansible_user }}"
+     api_password: "{{ ansible_password }}"
+     tickets_id: 1
+
+   tasks:
+     - name: Update Ticket
+       uri:
+         url: "http://ansibleallthethings.com/ticketnow/{{ tickets_id }}"
+         method: PUT
+         user: "{{ api_user }}"
+         password: "{{ api_password }}"
+         force_basic_auth: yes
+         body_format: json
+         body: 
+           status: "Closed"
+           subject: "Successful PUT Request"
+           comment: "This ticket is closed."
+         return_content: yes
+       register: response
+
+     - name: Output Raw Response
+       debug:
+         msg: "{{ response }}"
+
+     - name: Output Status Code
+       debug:
+         msg: "modify ticket response status: {{ response.status }}"
+

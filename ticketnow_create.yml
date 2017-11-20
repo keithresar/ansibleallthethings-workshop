@@ -1,0 +1,35 @@
+---
+ - hosts: localhost
+   name: Create a new TicketNow ticket
+   vars:
+     api_user: "{{ ansible_user }}"
+     api_password: "{{ ansible_password }}"
+
+   tasks:
+     - name: Create Ticket
+       uri:
+         url: http://ansibleallthethings.com/ticketnow
+         method: POST
+         user: "{{ api_user }}"
+         password: "{{ api_password }}"
+         force_basic_auth: yes
+         body_format: json
+         body: 
+           subject: "{{ api_user }}'s first ticket"
+           body: "lorem ipsum"
+         return_content: yes
+       register: response
+
+     - name: Output Raw Response
+       debug:
+         msg: "{{ response }}"
+
+     - name: Output Status Code
+       debug:
+         msg: "create ticket response status: {{ response.status }}"
+
+     - name: Output Ticket ID
+       debug:
+         msg: "create new ticket with ID: {{ response.json.tickets_id }}"
+
+

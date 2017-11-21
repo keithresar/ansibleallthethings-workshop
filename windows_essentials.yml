@@ -4,7 +4,9 @@
     - name: add user operator
       win_user:
         name: studentX
-        password: 0p$4@ll
+        password: '0p$4@ll'
+        groups:
+         - Remote Desktop Users
 
     - name: Add or update the registry and leave your mark
       win_regedit:

@@ -14,7 +14,7 @@
        yum:
          name: "{{ item }}"
          state: present
-       with_items: "{{ httpd_packages }}"
+       loop: "{{ httpd_packages }}"
 
      - name: set httpd port
        lineinfile:
@@ -31,7 +31,7 @@
      - name: create web page
        template:
          #src: templates/index.html.j2
-         src: workshop_solutions/templates/index.html.j2
+         src: ../workshop_solutions/templates/index.html.j2
          dest: /var/www/html/index.html
 
    handlers:
